@@ -108,6 +108,10 @@ h6 {
   font-size: calc(1rem * 1.2);
 }
 
+p img {
+  padding: 1em 5em;
+}
+
 a {
   color: #218bc9;
 }
@@ -116,6 +120,14 @@ a:hover,
 a:focus,
 a:active {
   color: #005688;
+}
+
+em {
+  font-style: italic;
+}
+
+strong {
+  font-weight: 400;
 }
 
 header {
@@ -218,6 +230,10 @@ main a {
 
 .post ul {
   list-style-type: square;
+}
+
+.post li {
+  padding: .25em 0;
 }
 
 .post blockquote {

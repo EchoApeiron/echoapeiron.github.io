@@ -1,63 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-        <meta charset="utf-8" />
-    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-
-    
-    <meta name="description" content="In my last entry I talked about the initial server setup for my Jellyfin server. Some of the basic things I do whenever setting up a Linux host then getting the application installed. If you haven’t read that and need to please see the link below:
-" />
-    <meta property="og:description" content="In my last entry I talked about the initial server setup for my Jellyfin server. Some of the basic things I do whenever setting up a Linux host then getting the application installed. If you haven’t read that and need to please see the link below:
-" />
-    
-    <meta name="author" content="Dion Pezzimenti" />
-
-    
-    <meta property="og:title" content="Jellyfin, Networking and SSL" />
-    <meta property="twitter:title" content="Jellyfin, Networking and SSL" />
-    
-    <title>Jellyfin, Networking and SSL – Dion Pezzimenti – Technology Enthusiast</title>
-    <link rel="stylesheet" type="text/css" href="/style.css" />
-    <link rel="shortcut icon" href="/images/icons/fav.ico">
-    <link rel="icon" type="image/png" href="/images/icons/fav-192.png" sizes="192x192">
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/fav-180.png">
-    <link rel="alternate" type="application/rss+xml" title="Dion Pezzimenti - Technology Enthusiast" href="/feed.xml" />
-</head>
-<body>
-    <header>
-            <div class="site-info">
-                <div class="site-avatar">
-                    <a href="/"><img src="https://www.flaticon.com/svg/static/icons/svg/189/189001.svg" /></a>
-                </div>
-                <div class="header-text">
-                    <a class="header-title" href="/">Dion Pezzimenti</a>
-                    <p>Technology Enthusiast</p>
-                </div>
-            </div>
-            <nav class="site-nav">
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/about/index.html">About</a></li>
-                </ul>
-            </nav>
-    </header>
-    <section class="masthead"></section>
-    <main class="container">
-        <article class="post">
-  <h1>Jellyfin, Networking and SSL</h1>
-
-  <div class="entry">
-    <p>In my last entry I talked about the initial server setup for my Jellyfin server. Some of the basic things I do whenever setting up a Linux host then getting the application installed. If you haven’t read that and need to please see the link below:</p>
+I"�0<p>In my last entry I talked about the initial server setup for my Jellyfin server. Some of the basic things I do whenever setting up a Linux host then getting the application installed. If you haven’t read that and need to please see the link below:</p>
 
 <p><a href="/Jellyfin-Initial">Jellyfin, Setting up the Server</a></p>
 
-<p>Where we left off you were at the point where you were configuring the application. Jellyfin runs off port 8096 by default for it’s base traffic. We will need this port as I haven’t gotten the app to use the reverse proxy we are going to build. But for our web browser we will be accessing the site via port 80 and port 443.</p>
+<p>Where we left off you were at the point where you were configuring the application. Jellyfin runs off port 8096 by default for it’s base traffic. We will need this port as I haven’t gotten the app to use the reverse proxy we are going to build. But for web browser we will be accessing the site via port 80 and port 443.</p>
 
 <h3 id="why-am-i-mentioning-these-ports">Why am I mentioning these ports?</h3>
 
-<p>Because the beautiful thing about Jellyfin is that it can do remote access out of the box without a license (<em>suck it Plex and Emby</em>). We just need to do some port forwarding on our router to allow us to access our site through the public IP that our ISP provides us.</p>
+<p>Because the beautiful thing about Jellyfin is that it can do remote access out of the box without a license (suck it Plex and Emby). We just need to do some port forwarding on our router to allow us to access our site through the public IP that our ISP provides us.</p>
 
 <p>There are a myraid of ways to do this depending on the router or service provider you have. So below are just some articles discussing NAT, PAT, and Port Forwarding techniques (this is alot but should encompass all the things that are going on here).</p>
 
@@ -75,9 +24,9 @@
   <p><a href="https://whatismyipaddress.com/">What is My IP Address</a></p>
 </blockquote>
 
-<p>Finally this step I will talk more about as this is the process I used. But you may find you want to lease a domain. I highly suggest doing this as we will need to purchase an SSL certificate to complete this project. No SSL service can run on Linux (or any system really) without a valid certificate. It’s just the way it is.</p>
+<p>Finally this step I will talk more about as this is the process I used. But you may find you want to lease a domain. I highly suggest doing this as we will need to purchase an SSL certificate to complete this project. No SSL service can run on Linux without a valid certificate. It’s just the way it is.</p>
 
-<p>I suggest using Namecheap as the name implies, they have some pretty good rates for their services. Their customer service can be less than desired. All and all it isn’t the worst company for the price. Their article below details how you can request a domain from them:</p>
+<p>I suggest using Namecheap as the name implies, they have some pretty good rates for their services. Their customer service can be less than desired. All and all it isn’t the worst company for the price. There article below details how you can request a domain from them:</p>
 
 <blockquote>
   <p><a href="https://www.namecheap.com/blog/how-to-buy-a-domain-name-dp/">How to Buy a Domain Name - NameCheap</a></p>
@@ -104,7 +53,7 @@
   <li>It’s going to create our certificate’s private key. <strong>THIS IS SUPER IMPORTANT DON’T LOSE THIS OR GIVE IT OUT OR YOU MUST REQUEST A NEW CERTIFICATE</strong></li>
 </ol>
 
-<p>In order to do this we are going to use OpenSSL issuing the following command:</p>
+<p>In order to do this we are going to use OpenSSL issues the following command:</p>
 
 <p><code class="language-plaintext highlighter-rouge">openssl req -newkey rsa:2048 -keyout PRIVATEKEY.key -out MYCSR.csr</code></p>
 
@@ -233,57 +182,10 @@ server {
 
 <p><code class="language-plaintext highlighter-rouge">systemctl restart nginx</code></p>
 
-<p>Now from any web browser you should be able to domain you setup and be redirected to a secure HTTPS page. However it is a proxied connection to your Jellyfin server. As I mentioned earlier in this post that I can’t get the Jellyfin mobile app to work with my reverse proxy. But I will make an update if I figure out why that is. For now we punched a hole in your router for 8096 the native Jellyfin port so you should be able to just use that for now.</p>
-
-<p>There is only one more exploit in this adventure and that will be centralizing the login. If you still have yet to setup a Jellyfin server I will provide the link the initial setup again down below:</p>
+<p>Now from any web browser you should be able to domain you setup and be redirected to a secure HTTPS page. However it is a proxied connection to your Jellyfin server. There is only one more exploit in this adventure and that will be centralizing the login. If you still have yet to setup a Jellyfin server I will provide the link the initial setup again down below:</p>
 
 <ul>
   <li><a href="/Jellyfin-Initial">Jellyfin, Setting up the Server</a></li>
   <li><a href="/Jellyfin-LDAP">Jellyfin, Centralizing Authentication with AD</a></li>
 </ul>
-
-  </div>
-
-  <div class="date">
-    Written on October 20, 2020
-  </div>
-
-  
-<div class="comments">
-	<div id="disqus_thread"></div>
-	<script type="text/javascript">
-
-	    var disqus_shortname = 'echoapeiron-blog';
-
-	    (function() {
-	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-	    })();
-
-	</script>
-	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-
-</article>
-
-    </main>
-    <footer>
-        
-<a href="mailto:dion.pezzimenti@protonmail.com"><i class="svg-icon email"></i></a>
-
-
-<a href="https://github.com/EchoApeiron"><i class="svg-icon github"></i></a>
-
-
-
-
-
-
-
-
-    </footer>
-    
-
-</body>
-</html>
+:ET
