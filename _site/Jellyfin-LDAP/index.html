@@ -7,20 +7,18 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
 
     
-    <meta name="description" content="&lt; ADDED FOR PAGE FORMATTING UNFORTUNATELY THE PAGE DOESN’T RENDER PROPERLY WITHOUT CONTENT FILLING THE PAGE.&gt;
-&lt; MORE TO COME STAY TUNED &gt;
+    <meta name="description" content="&lt; ANOTHER ADD FOR PAGE FORMATTING STAY TUNED &gt;
 " />
-    <meta property="og:description" content="&lt; ADDED FOR PAGE FORMATTING UNFORTUNATELY THE PAGE DOESN’T RENDER PROPERLY WITHOUT CONTENT FILLING THE PAGE.&gt;
-&lt; MORE TO COME STAY TUNED &gt;
+    <meta property="og:description" content="&lt; ANOTHER ADD FOR PAGE FORMATTING STAY TUNED &gt;
 " />
     
     <meta name="author" content="Dion Pezzimenti" />
 
     
-    <meta property="og:title" content="Jellyfin, Networking and SSL" />
-    <meta property="twitter:title" content="Jellyfin, Networking and SSL" />
+    <meta property="og:title" content="Jellyfin, Centralizing Authentication with AD" />
+    <meta property="twitter:title" content="Jellyfin, Centralizing Authentication with AD" />
     
-    <title>Jellyfin, Networking and SSL – Dion Pezzimenti – Technology Enthusiast</title>
+    <title>Jellyfin, Centralizing Authentication with AD – Dion Pezzimenti – Technology Enthusiast</title>
     <link rel="stylesheet" type="text/css" href="/style.css" />
     <link rel="shortcut icon" href="/images/icons/fav.ico">
     <link rel="icon" type="image/png" href="/images/icons/fav-192.png" sizes="192x192">
@@ -48,45 +46,29 @@
     <section class="masthead"></section>
     <main class="container">
         <article class="post">
-  <h1>Jellyfin, Networking and SSL</h1>
+  <h1>Jellyfin, Centralizing Authentication with AD</h1>
 
   <div class="entry">
-    <p>&lt; ADDED FOR PAGE FORMATTING UNFORTUNATELY THE PAGE DOESN’T RENDER PROPERLY WITHOUT CONTENT FILLING THE PAGE.&gt;
-&lt; MORE TO COME STAY TUNED &gt;</p>
+    <p>&lt; ANOTHER ADD FOR PAGE FORMATTING STAY TUNED &gt;</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>upstream backends {
-    server 192.168.0.245:8096;
-}
-</code></pre></div></div>
+<p>https://www.server-world.info/en/note?os=Ubuntu_20.04&amp;p=realmd</p>
 
-<h2 id="tldr-nginx-config-p">TLDR; nginx Config :P</h2>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server {
-    listen 80;
-    server_name &lt;server_url&gt;; 
-    return 301 https://$host$request_uri;
-}
-
-server {
-    listen 443 ssl;  
-    server_name &lt;server_url&gt;;
-    allow all; 
-
-    ssl_certificate /etc/nginx/ssl/home/server.pem;
-    ssl_certificate_key /etc/nginx/ssl/home/server.key;
-    ssl_trusted_certificate /etc/nginx/ssl/home/chain.pem;
-
-    location / {
-        proxy_pass http://backends;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-Forwarded-Protocol $scheme;
-        proxy_set_header X-Forwarded-Host $http_host;
-    }
-}
-</code></pre></div></div>
+<p>&lt;?xml version=”1.0”?&gt;</p>
+<PluginConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <LdapServer>itachi.digiecho.xyz</LdapServer>
+  <LdapBaseDn>DC=digiecho,DC=xyz</LdapBaseDn>
+  <LdapPort>389</LdapPort>
+  <LdapSearchAttributes>SamAccountName</LdapSearchAttributes>
+  <LdapUsernameAttribute>SamAccountName</LdapUsernameAttribute>
+  <LdapSearchFilter>(memberOf=CN=Jellyfin-Users,OU=O-Groups,DC=digiecho,DC=xyz)</LdapSearchFilter>
+  <LdapAdminFilter>(memberOf=CN=Jellyfin-Admins,OU=O-Groups,DC=digiecho,DC=xyz)</LdapAdminFilter>
+  <LdapBindUser>CN=Jellyfin LDAP,OU=Service-Accounts,OU=O-Users,DC=digiecho,DC=xyz</LdapBindUser>
+  <LdapBindPassword>J3llyfin</LdapBindPassword>
+  <CreateUsersFromLdap>true</CreateUsersFromLdap>
+  <UseSsl>false</UseSsl>
+  <UseStartTls>false</UseStartTls>
+  <SkipSslVerify>false</SkipSslVerify>
+</PluginConfiguration>
 
   </div>
 

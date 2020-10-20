@@ -7,20 +7,18 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
 
     
-    <meta name="description" content="&lt; ADDED FOR PAGE FORMATTING UNFORTUNATELY THE PAGE DOESN’T RENDER PROPERLY WITHOUT CONTENT FILLING THE PAGE.&gt;
-&lt; MORE TO COME STAY TUNED &gt;
+    <meta name="description" content="This is another post just added for page formatting since the page doesn’t seem to be formatting without content on the page. So I’m adding some future posts now so that I can get a better idea how the page will render when it has been populated.
 " />
-    <meta property="og:description" content="&lt; ADDED FOR PAGE FORMATTING UNFORTUNATELY THE PAGE DOESN’T RENDER PROPERLY WITHOUT CONTENT FILLING THE PAGE.&gt;
-&lt; MORE TO COME STAY TUNED &gt;
+    <meta property="og:description" content="This is another post just added for page formatting since the page doesn’t seem to be formatting without content on the page. So I’m adding some future posts now so that I can get a better idea how the page will render when it has been populated.
 " />
     
     <meta name="author" content="Dion Pezzimenti" />
 
     
-    <meta property="og:title" content="Jellyfin, Networking and SSL" />
-    <meta property="twitter:title" content="Jellyfin, Networking and SSL" />
+    <meta property="og:title" content="Switch Modding" />
+    <meta property="twitter:title" content="Switch Modding" />
     
-    <title>Jellyfin, Networking and SSL – Dion Pezzimenti – Technology Enthusiast</title>
+    <title>Switch Modding – Dion Pezzimenti – Technology Enthusiast</title>
     <link rel="stylesheet" type="text/css" href="/style.css" />
     <link rel="shortcut icon" href="/images/icons/fav.ico">
     <link rel="icon" type="image/png" href="/images/icons/fav-192.png" sizes="192x192">
@@ -48,50 +46,15 @@
     <section class="masthead"></section>
     <main class="container">
         <article class="post">
-  <h1>Jellyfin, Networking and SSL</h1>
+  <h1>Switch Modding</h1>
 
   <div class="entry">
-    <p>&lt; ADDED FOR PAGE FORMATTING UNFORTUNATELY THE PAGE DOESN’T RENDER PROPERLY WITHOUT CONTENT FILLING THE PAGE.&gt;
-&lt; MORE TO COME STAY TUNED &gt;</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>upstream backends {
-    server 192.168.0.245:8096;
-}
-</code></pre></div></div>
-
-<h2 id="tldr-nginx-config-p">TLDR; nginx Config :P</h2>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server {
-    listen 80;
-    server_name &lt;server_url&gt;; 
-    return 301 https://$host$request_uri;
-}
-
-server {
-    listen 443 ssl;  
-    server_name &lt;server_url&gt;;
-    allow all; 
-
-    ssl_certificate /etc/nginx/ssl/home/server.pem;
-    ssl_certificate_key /etc/nginx/ssl/home/server.key;
-    ssl_trusted_certificate /etc/nginx/ssl/home/chain.pem;
-
-    location / {
-        proxy_pass http://backends;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-Forwarded-Protocol $scheme;
-        proxy_set_header X-Forwarded-Host $http_host;
-    }
-}
-</code></pre></div></div>
+    <p>This is another post just added for page formatting since the page doesn’t seem to be formatting without content on the page. So I’m adding some future posts now so that I can get a better idea how the page will render when it has been populated.</p>
 
   </div>
 
   <div class="date">
-    Written on October 20, 2020
+    Written on October  1, 2020
   </div>
 
   
