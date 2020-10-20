@@ -1,0 +1,37 @@
+I"œ<p>&lt; ADDED FOR PAGE FORMATTING &gt;
+&lt; MORE TO COME STAY TUNED &gt;</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>upstream backends {
+    server 192.168.0.245:8096;
+}
+</code></pre></div></div>
+
+<h2 id="tldr-nginx-config-p">TLDR; nginx Config :P</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server {
+    listen 80;
+    server_name &lt;server_url&gt;; 
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;  
+    server_name &lt;server_url&gt;;
+    allow all; 
+
+    ssl_certificate /etc/nginx/ssl/home/server.pem;
+    ssl_certificate_key /etc/nginx/ssl/home/server.key;
+    ssl_trusted_certificate /etc/nginx/ssl/home/chain.pem;
+
+    location / {
+        proxy_pass http://backends;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Protocol $scheme;
+        proxy_set_header X-Forwarded-Host $http_host;
+    }
+}
+</code></pre></div></div>
+:ET

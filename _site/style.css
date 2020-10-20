@@ -63,7 +63,7 @@ body {
   display: grid;
   justify-items: center;
   align-items: center;
-  grid-template-rows: 100px 125px 150px 1fr 100px;
+  grid-template-rows: 100px 75px 325px 1fr 100px;
   grid-template-columns: 1fr;
   font-family: 'Montserrat', sans-serif;
   font-size: calc(1rem);
@@ -76,11 +76,15 @@ h3, h4, h5, h6 {
 }
 
 h1 {
+  color: #9fdcff;
   font-size: calc(1rem * 2.2);
+  font-weight: 400;
   margin-bottom: .5em;
 }
 
 h2, h3, h4, h5, h6 {
+  color: #9fdcff;
+  font-weight: 300;
   margin: 0.25em 0 0.5em 0;
 }
 
@@ -109,7 +113,8 @@ a {
 }
 
 a:hover,
-a:focus {
+a:focus,
+a:active {
   color: #005688;
 }
 
@@ -155,21 +160,44 @@ header {
   background-position: center;
   grid-row: 2 / 4;
   grid-column: 1 / 2;
-  height: 275px;
+  height: 400px;
   width: 100vw;
 }
 
 main {
-  display: flex;
-  background: #004875;
+  background: #004875c4;
   grid-row: 3 / 5;
   grid-column: 1 / 2;
   width: 70vw;
   padding: 25px;
+  border: 4px solid #218bc9;
+  border-radius: 8px;
 }
 
 main a {
   color: #9fdcff;
+}
+
+@media screen and (max-width: 640px) {
+  main {
+    width: 90vw;
+  }
+}
+
+.main-post:hover,
+.main-post:active,
+.main-post:focus {
+  background: #004875;
+}
+
+.main-post {
+  border: 1px solid white;
+  border-radius: 4px;
+  margin-bottom: 1.5em;
+}
+
+.post {
+  padding: 1em;
 }
 
 .post p {
@@ -197,7 +225,7 @@ main a {
 
 .post .highlight {
   justify-self: center;
-  width: 50vw;
+  width: 60vw;
 }
 
 .post .date {

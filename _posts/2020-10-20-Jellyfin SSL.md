@@ -1,10 +1,15 @@
 ---
 layout: post
-title: Jellyfin, Securing with SSL Certificates
+title: Jellyfin, Networking and SSL
 ---
+< ADDED FOR PAGE FORMATTING >
+< MORE TO COME STAY TUNED >
+
     upstream backends {
-        server 10.0.0.245:8096;
+        server 192.168.0.245:8096;
     }
+
+## TLDR; nginx Config :P 
 
     server {
         listen 80;

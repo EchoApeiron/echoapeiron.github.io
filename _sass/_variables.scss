@@ -1,0 +1,7 @@
+// Variables for Mobile and 2K, 4K responsive elements
+
+@mixin mobile {
+    @media screen and (max-width: 640px) {
+      @content;
+    }
+  }
