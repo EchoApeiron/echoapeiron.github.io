@@ -140,4 +140,17 @@ These two attributes pretty much state what we are looking for as a value to che
 <LdapAdminFilter>(memberOf=CN=Jellyfin-Admins,OU=O-Groups,DC=server,DC=com)</LdapAdminFilter>
 ```
 
-These two filters though are extremely important. These two don't just simply look for Organizational Units in our directory. They go and look for specific User Groups in our directory. Check who the members of these groups are and then enables them to be created in Jellyfin. However I did notice a small glitch. The admin group doesn't seem to work correctly. But you definitely want to utilize the `LdapSearchFilter` as this will dictate the users in your directory that can use the app. 
+These two filters though are extremely important. These two don't just simply look for Organizational Units in our directory. They go and look for specific User Groups in our directory. Check who the members of these groups are and then enables them to be created in Jellyfin. However I did notice a small glitch. The admin group doesn't seem to work correctly. But you definitely want to utilize the `LdapSearchFilter` as this will dictate the users in your directory that can use the app. The `LdapAdminFilter` is meant to act as a group that dictates who is a Jellyfin admin and who isn't. 
+
+```
+<LdapBindUser>CN=Jellyfin LDAP,OU=Service-Accounts,OU=O-Users,DC=server,DC=com</LdapBindUser>
+<LdapBindPassword>J3llyfin</LdapBindPassword>
+```
+
+These two values are the bread and butter though. The `LdapBindUser` will be the directory user that Jellyfin authenticates with to do LDAP queries in our domain. If there is an account that doesn't have sufficient privleges or if this is not entered correctly then you won't be able to authenticate using your domain at all. Secondly maike sure the `LdapBindPassword` is also set to the correct value. 
+
+The remainder of the configs are just specifiers to tell Jellyfin how to behave in regards to using LDAP. The first being the one we are concerned with. Ensure that `CreateUsersFromLdap` is set to true. The others are related to LDAPS or using LDAP over SSL which we aren't doing. 
+
+So with all that set as long as the configuration saves properly you have entered all the correct values. You will then be able to login to your Jellyfin instance with your domain accounts. Rather than having to create additional local logins for everyone. 
+
+With that Jellyfin is running strong for me, and I hope that these posts have helped you. If there are questions feel free to reach out to me for further assistance. Till then, see you space cowboy...
