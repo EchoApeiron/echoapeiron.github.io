@@ -3,7 +3,7 @@ layout: post
 title: Jellyfin, Setting up the Server
 ---
 
-Recently I learned about a server application called Jellyfin. A media server replacement that really aims to compete with the likes of Plex. I have been a Plex user for some time and even have a life time subscription. Plex being so simple to use with such a community it made the choice hard. So why were some reasons I went ahead and deployed a Jellyfin server for testing: 
+Recently I learned about a server application called Jellyfin. A media server replacement that really aims to compete with the likes of Plex. I have been a Plex user for some time and even have a life time subscription. Plex being so simple to use with such a community it made the choice hard. So why were some reasons I went ahead and deployed a Jellyfin server: 
 
 1. It's Opensource 
 2. Full Control to You the Admin 
@@ -25,9 +25,8 @@ We will be going for a really basic setup, setup your static IP during install (
 
 Before doing any work it's just a wise idea to have a backup in case we mung up our configuration later. Firstly we need to setup some SSH keys on our server. Depending on how you will be accessing your Linux host you might need to do one of two things: 
 
-> [Setup SSH Key Authentication](https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server)
->
-> [PuTTY SSH Key Authentication](https://devops.ionos.com/tutorials/use-ssh-keys-with-putty-on-windows/)
+> - [Setup SSH Key Authentication](https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server)
+> - [PuTTY SSH Key Authentication](https://devops.ionos.com/tutorials/use-ssh-keys-with-putty-on-windows/)
 
 For me I did PuTTY as I use a Windows host as my main machine. Though for you Linux or Mac users the first guide will teach you how to use openssh toolset to generate a RSA key and copy it to the remote host. It's important you copy the RSA key with the user you setup during installation. You don't want to copy it to the root account as we are going to be disabling the root login... no actually that we have the RSA keys generated. To do this we will use our favorite text editor and modify the config file we made a backup of earlier: 
 
@@ -90,6 +89,5 @@ Once you have the packages you should be able to access the site via http://<hos
 
 
 
-[Jellyfin, Securing with SSL Certificates]({{ site.baseurl }}/Jellyfin-SSL)
-
-[Jellyfin, Centralizing Authentication with AD]({{ site.baseurl }}/Jellyfin-LDAP)
+- [Jellyfin, Securing with SSL Certificates]({{ site.baseurl }}/Jellyfin-SSL)
+- [Jellyfin, Centralizing Authentication with AD]({{ site.baseurl }}/Jellyfin-LDAP)

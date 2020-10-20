@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include meta.html %}
+    <title>{% if page.title %}{{ page.title }} – {% endif %}{{ site.name }} – {{ site.description }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css" />
+    <link rel="shortcut icon" href="{{ site.baseurl }}/images/icons/fav.ico">
+    <link rel="icon" type="image/png" href="{{ site.baseurl }}/images/icons/fav-192.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ site.baseurl }}/images/icons/fav-180.png">
+    <link rel="alternate" type="application/rss+xml" title="{{ site.name }} - {{ site.description }}" href="{{ site.baseurl }}/feed.xml" />
+</head>
+<body>
+    <header>
+            <div class="site-info">
+                <div class="site-avatar">
+                    <a href="{{ site.baseurl }}/"><img src="{{ site.avatar }}" /></a>
+                </div>
+                <div class="header-text">
+                    <a class="header-title" href="{{ site.baseurl }}/">{{ site.name }}</a>
+                    <p>{{ site.description }}</p>
+                </div>
+            </div>
+            <nav class="site-nav">
+                <ul>
+                    <li><a href="{{ site.baseurl }}/">Home</a></li>
+                    <li><a href="{{ site.baseurl }}/about/index.html">About</a></li>
+                </ul>
+            </nav>
+    </header>
+    <section class="masthead"></section>
+    <main class="container">
+        {{ content }}
+    </main>
+    <footer>
+        {% include svg-icons.html %}
+    </footer>
+    {% include analytics.html %}
+</body>
+</html>

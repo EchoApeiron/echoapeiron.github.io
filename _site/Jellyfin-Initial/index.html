@@ -1,4 +1,55 @@
-I"#<p>Recently I learned about a server application called Jellyfin. A media server replacement that really aims to compete with the likes of Plex. I have been a Plex user for some time and even have a life time subscription. Plex being so simple to use with such a community it made the choice hard. So why were some reasons I went ahead and deployed a Jellyfin server for testing:</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+
+    
+    <meta name="description" content="Recently I learned about a server application called Jellyfin. A media server replacement that really aims to compete with the likes of Plex. I have been a Plex user for some time and even have a life time subscription. Plex being so simple to use with such a community it made the choice hard. So why were some reasons I went ahead and deployed a Jellyfin server:
+" />
+    <meta property="og:description" content="Recently I learned about a server application called Jellyfin. A media server replacement that really aims to compete with the likes of Plex. I have been a Plex user for some time and even have a life time subscription. Plex being so simple to use with such a community it made the choice hard. So why were some reasons I went ahead and deployed a Jellyfin server:
+" />
+    
+    <meta name="author" content="Dion Pezzimenti" />
+
+    
+    <meta property="og:title" content="Jellyfin, Setting up the Server" />
+    <meta property="twitter:title" content="Jellyfin, Setting up the Server" />
+    
+    <title>Jellyfin, Setting up the Server – Dion Pezzimenti – Technology Enthusiast</title>
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="shortcut icon" href="/images/icons/fav.ico">
+    <link rel="icon" type="image/png" href="/images/icons/fav-192.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/fav-180.png">
+    <link rel="alternate" type="application/rss+xml" title="Dion Pezzimenti - Technology Enthusiast" href="/feed.xml" />
+</head>
+<body>
+    <header>
+            <div class="site-info">
+                <div class="site-avatar">
+                    <a href="/"><img src="https://www.flaticon.com/svg/static/icons/svg/189/189001.svg" /></a>
+                </div>
+                <div class="header-text">
+                    <a class="header-title" href="/">Dion Pezzimenti</a>
+                    <p>Technology Enthusiast</p>
+                </div>
+            </div>
+            <nav class="site-nav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about/index.html">About</a></li>
+                </ul>
+            </nav>
+    </header>
+    <section class="masthead"></section>
+    <main class="container">
+        <article class="post">
+  <h1>Jellyfin, Setting up the Server</h1>
+
+  <div class="entry">
+    <p>Recently I learned about a server application called Jellyfin. A media server replacement that really aims to compete with the likes of Plex. I have been a Plex user for some time and even have a life time subscription. Plex being so simple to use with such a community it made the choice hard. So why were some reasons I went ahead and deployed a Jellyfin server:</p>
 
 <ol>
   <li>It’s Opensource</li>
@@ -25,9 +76,10 @@
 <p>Before doing any work it’s just a wise idea to have a backup in case we mung up our configuration later. Firstly we need to setup some SSH keys on our server. Depending on how you will be accessing your Linux host you might need to do one of two things:</p>
 
 <blockquote>
-  <p><a href="https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server">Setup SSH Key Authentication</a></p>
-
-  <p><a href="https://devops.ionos.com/tutorials/use-ssh-keys-with-putty-on-windows/">PuTTY SSH Key Authentication</a></p>
+  <ul>
+    <li><a href="https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server">Setup SSH Key Authentication</a></li>
+    <li><a href="https://devops.ionos.com/tutorials/use-ssh-keys-with-putty-on-windows/">PuTTY SSH Key Authentication</a></li>
+  </ul>
 </blockquote>
 
 <p>For me I did PuTTY as I use a Windows host as my main machine. Though for you Linux or Mac users the first guide will teach you how to use openssh toolset to generate a RSA key and copy it to the remote host. It’s important you copy the RSA key with the user you setup during installation. You don’t want to copy it to the root account as we are going to be disabling the root login… no actually that we have the RSA keys generated. To do this we will use our favorite text editor and modify the config file we made a backup of earlier:</p>
@@ -93,7 +145,53 @@ password=&lt;admin_password&gt;
 
 <p>Once you have the packages you should be able to access the site via http://<host>:8096. From there it will have you create your initial administrator user, as well as setup your libraries. You might immediately find difficulties with meta data and scraping. That is beyond the scope of any of the discussions in this series so unfortunately that is something you will have to hurdle. Though we need to get it secure with a SSL certificate and also tie the application into a central authentication server (which we will be using Microsoft Active Directory for). To review these use the links below:</host></p>
 
-<p><a href="/Jellyfin-SSL">Jellyfin, Securing with SSL Certificates</a></p>
+<ul>
+  <li><a href="/Jellyfin-SSL">Jellyfin, Securing with SSL Certificates</a></li>
+  <li><a href="/Jellyfin-LDAP">Jellyfin, Centralizing Authentication with AD</a></li>
+</ul>
 
-<p><a href="/Jellyfin-LDAP">Jellyfin, Centralizing Authentication with AD</a></p>
-:ET
+  </div>
+
+  <div class="date">
+    Written on October 19, 2020
+  </div>
+
+  
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'echoapeiron-blog';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</article>
+
+    </main>
+    <footer>
+        
+<a href="mailto:dion.pezzimenti@protonmail.com"><i class="svg-icon email"></i></a>
+
+
+<a href="https://github.com/EchoApeiron"><i class="svg-icon github"></i></a>
+
+
+
+
+
+
+
+
+    </footer>
+    
+
+</body>
+</html>
