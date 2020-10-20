@@ -13,7 +13,7 @@ body {
     display: grid; 
     justify-items: center;
     align-items: center; 
-    grid-template-rows: 100px 75px 325px 1fr 100px;
+    grid-template-rows: 100px 75px 725px 1fr 100px;
     grid-template-columns: 1fr;
     font-family: 'Montserrat', sans-serif; 
     font-size: calc(1rem);
@@ -76,6 +76,8 @@ header {
     grid-row: 1 / 2; 
     grid-column: 1 / 2;
     width: 100vw; 
+    height: 100px; 
+    border-bottom: 4px solid #218bc9;
 }   
 
 .site-info { 
@@ -104,12 +106,13 @@ header {
 }
 
 .masthead {
-    background: url(./images/masthead/tech.jpg);
+    background: linear-gradient(to bottom, transparent 0%, #002d47 85%), 
+        url(./images/masthead/tech.jpg);
     background-repeat: no-repeat;
     background-position: center;
     grid-row: 2 / 4; 
     grid-column: 1 / 2; 
-    height: 400px; 
+    height: 800px; 
     width: 100vw; 
 }
 
