@@ -252,6 +252,10 @@ main a {
   color: black;
 }
 
+.date {
+  padding: 1em 0;
+}
+
 footer {
   grid-row: 5 / 6;
   grid-column: 1 / 2;

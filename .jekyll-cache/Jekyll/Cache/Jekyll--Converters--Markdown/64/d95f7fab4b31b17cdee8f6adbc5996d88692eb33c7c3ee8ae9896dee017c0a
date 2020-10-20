@@ -1,4 +1,4 @@
-I"T!<p>Onto what is currently the final installment of my Jellyfin server expedition. So far we have done some base server setup, configured the base application, did some networking to enable remote access, and deployed a reverse proxy to do our SSL offloading. Quite a bit, and if you need a review here are the links to the previous blog post:</p>
+I"�4<p>Onto what is currently the final installment of my Jellyfin server expedition. So far we have done some base server setup, configured the base application, did some networking to enable remote access, and deployed a reverse proxy to do our SSL offloading. Quite a bit, and if you need a review here are the links to the previous blog post:</p>
 
 <ul>
   <li><a href="/Jellyfin-Initial">Jellyfin, Setting up the Server</a></li>
@@ -83,6 +83,16 @@ session optional        pam_mkhomedir.so skel=/etc/skel umask=077
 
 <p><img src="https://drive.google.com/uc?export=view&amp;id=1iefLZu_xRKfMWSVHqa-TLaapjmBkBguf" alt="Jellyfin Plugins Menu" height="450px" /></p>
 
+<p>Once the plugin is installed you will need to restart the <code class="language-plaintext highlighter-rouge">jellyfin</code> service itself:</p>
+
+<p><code class="language-plaintext highlighter-rouge">systemctl restart jellyfin.service</code></p>
+
+<p>From there you have two different approaches to how you can modify the configuration for this. You can either enter the values in the web portal or modify the configuration file located in the following directory (at least for me):</p>
+
+<p><code class="language-plaintext highlighter-rouge">/var/lib/jellyfin/plugins/configurations</code></p>
+
+<p>From there you can modify the <code class="language-plaintext highlighter-rouge">LDAP-Auth.xml</code> file. Below is the example of my configuration file, but I will explain what each value means:</p>
+
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;?xml version="1.0"?&gt;
 &lt;PluginConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;LdapServer&gt;directory.server.com&lt;/LdapServer&gt;
@@ -100,4 +110,37 @@ session optional        pam_mkhomedir.so skel=/etc/skel umask=077
   &lt;SkipSslVerify&gt;false&lt;/SkipSslVerify&gt;
 &lt;/PluginConfiguration&gt;
 </code></pre></div></div>
+
+<p>There is a lot going on in this configuration. Firstly we have these three values that really help to define how we will connect and start searching our domain:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;LdapServer&gt;directory.server.com&lt;/LdapServer&gt;
+&lt;LdapBaseDn&gt;DC=server,DC=com&lt;/LdapBaseDn&gt;
+&lt;LdapPort&gt;389&lt;/LdapPort&gt;
+</code></pre></div></div>
+
+<p>Our <em>LdapServer</em> is the main node we will be using to integrate to our AD environment. As well it will be the one we issue all our LDAP requests to. For our <em>LdapBaseDn</em> it refers to the starting location in the Organizational Units to start searching in the domain. For this we pretty much specify the base domain as the search start. And the <em>LdapPort</em> is just the port that will be used to form the LDAP socket for queries.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;LdapSearchAttributes&gt;SamAccountName&lt;/LdapSearchAttributes&gt;
+&lt;LdapUsernameAttribute&gt;SamAccountName&lt;/LdapUsernameAttribute&gt;
+</code></pre></div></div>
+
+<p>These two attributes pretty much state what we are looking for as a value to check against for our authentication. It is a Name Attribute specific to Windows domains. So we will gloss over it as it is still a pretty widely used field.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;LdapSearchFilter&gt;(memberOf=CN=Jellyfin-Users,OU=O-Groups,DC=server,DC=com)&lt;/LdapSearchFilter&gt;
+&lt;LdapAdminFilter&gt;(memberOf=CN=Jellyfin-Admins,OU=O-Groups,DC=server,DC=com)&lt;/LdapAdminFilter&gt;
+</code></pre></div></div>
+
+<p>These two filters though are extremely important. These two don’t just simply look for Organizational Units in our directory. They go and look for specific User Groups in our directory. Check who the members of these groups are and then enables them to be created in Jellyfin. However I did notice a small glitch. The admin group doesn’t seem to work correctly. But you definitely want to utilize the <code class="language-plaintext highlighter-rouge">LdapSearchFilter</code> as this will dictate the users in your directory that can use the app. The <code class="language-plaintext highlighter-rouge">LdapAdminFilter</code> is meant to act as a group that dictates who is a Jellyfin admin and who isn’t.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;LdapBindUser&gt;CN=Jellyfin LDAP,OU=Service-Accounts,OU=O-Users,DC=server,DC=com&lt;/LdapBindUser&gt;
+&lt;LdapBindPassword&gt;J3llyfin&lt;/LdapBindPassword&gt;
+</code></pre></div></div>
+
+<p>These two values are the bread and butter though. The <code class="language-plaintext highlighter-rouge">LdapBindUser</code> will be the directory user that Jellyfin authenticates with to do LDAP queries in our domain. If there is an account that doesn’t have sufficient privleges or if this is not entered correctly then you won’t be able to authenticate using your domain at all. Secondly maike sure the <code class="language-plaintext highlighter-rouge">LdapBindPassword</code> is also set to the correct value.</p>
+
+<p>The remainder of the configs are just specifiers to tell Jellyfin how to behave in regards to using LDAP. The first being the one we are concerned with. Ensure that <code class="language-plaintext highlighter-rouge">CreateUsersFromLdap</code> is set to true. The others are related to LDAPS or using LDAP over SSL which we aren’t doing.</p>
+
+<p>So with all that set as long as the configuration saves properly you have entered all the correct values. You will then be able to login to your Jellyfin instance with your domain accounts. Rather than having to create additional local logins for everyone.</p>
+
+<p>With that Jellyfin is running strong for me, and I hope that these posts have helped you. If there are questions feel free to reach out to me for further assistance. Till then, see you space cowboy…</p>
 :ET
