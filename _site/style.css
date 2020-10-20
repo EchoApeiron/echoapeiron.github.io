@@ -58,6 +58,18 @@ table {
   box-sizing: border-box;
 }
 
+body {
+  background: #002d47;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  grid-template-rows: 100px 125px 150px 1fr 100px;
+  grid-template-columns: 1fr;
+  font-family: 'Montserrat', sans-serif;
+  font-size: calc(1rem);
+  font-weight: 200;
+}
+
 p, h1, h2,
 h3, h4, h5, h6 {
   color: white;
@@ -99,18 +111,6 @@ a {
 a:hover,
 a:focus {
   color: #005688;
-}
-
-body {
-  background: #002d47;
-  display: grid;
-  justify-items: center;
-  align-items: center;
-  grid-template-rows: 100px 250px 25px 1fr 100px;
-  grid-template-columns: 1fr;
-  font-family: 'Montserrat', sans-serif;
-  font-size: calc(1rem);
-  font-weight: 200;
 }
 
 header {
