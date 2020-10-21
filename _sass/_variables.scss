@@ -3,5 +3,17 @@
 @mixin mobile {
     @media screen and (max-width: 640px) {
       @content;
-    }
   }
+}
+
+@mixin tablet {
+  @media screen and (max-width: 800px) {
+    @content; 
+  }
+}
+
+@mixin low-res {
+  @media screen and (max-width: 1366px) {
+    @content;
+  }
+}

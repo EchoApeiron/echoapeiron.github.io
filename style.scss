@@ -151,6 +151,9 @@ main {
     height: 100%;
     padding: 25px;
     border: 2px solid #218bc9;
+    @include tablet {
+        width: 85vw; 
+    }
     @include mobile {
         width: 90vw; 
     }
@@ -174,6 +177,14 @@ main {
     height: 40vh; 
     width: 20vw; 
     overflow: hidden;
+    @include low-res {
+        width: 30vw; 
+        height: 55vh; 
+    }
+    @include tablet {
+        height: 60vh; 
+        width: 35vw;
+    }
     @include mobile {
         height: 50vh; 
         width: 80vw;

@@ -201,6 +201,12 @@ main {
   border: 2px solid #218bc9;
 }
 
+@media screen and (max-width: 800px) {
+  main {
+    width: 85vw;
+  }
+}
+
 @media screen and (max-width: 640px) {
   main {
     width: 90vw;
@@ -225,6 +231,20 @@ main {
   height: 40vh;
   width: 20vw;
   overflow: hidden;
+}
+
+@media screen and (max-width: 1366px) {
+  .main-post {
+    width: 30vw;
+    height: 55vh;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .main-post {
+    height: 60vh;
+    width: 35vw;
+  }
 }
 
 @media screen and (max-width: 640px) {
