@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Jellyfin, Setting up the Server
+tags: linux networking jellyfin basic-security
 ---
 
 Recently I learned about a server application called Jellyfin. A media server replacement that really aims to compete with the likes of Plex. I have been a Plex user for some time and even have a life time subscription. Plex being so simple to use with such a community it made the choice hard. So why were some reasons I went ahead and deployed a Jellyfin server: 

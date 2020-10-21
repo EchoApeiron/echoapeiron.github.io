@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Jellyfin, Networking and SSL
+tags: linux networking jellyfin basic-security web
 ---
 In my last entry I talked about the initial server setup for my Jellyfin server. Some of the basic things I do whenever setting up a Linux host then getting the application installed. If you haven't read that and need to please see the link below: 
 

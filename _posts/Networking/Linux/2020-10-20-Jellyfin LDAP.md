@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Jellyfin, Centralizing Authentication with AD
+tags: linux networking jellyfin active-directory ldap
 ---
 Onto what is currently the final installment of my Jellyfin server expedition. So far we have done some base server setup, configured the base application, did some networking to enable remote access, and deployed a reverse proxy to do our SSL offloading. Quite a bit, and if you need a review here are the links to the previous blog post:
 
