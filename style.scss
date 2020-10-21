@@ -96,6 +96,15 @@ header {
     width: 100vw; 
     height: 100%; 
     border-bottom: 4px solid #218bc9;
+
+    a {
+        color: #186694;
+    }
+
+    a:hover, a:active,
+    a:focus {
+        color: #218bc9;
+    }
 }   
 
 .site-info { 
