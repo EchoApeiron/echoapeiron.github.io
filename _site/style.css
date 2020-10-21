@@ -130,6 +130,10 @@ strong {
   font-weight: 400;
 }
 
+hr {
+  border: 2px solid #218bc9;
+}
+
 header {
   display: flex;
   justify-content: space-around;
@@ -185,8 +189,7 @@ main {
   width: 70vw;
   height: 100%;
   padding: 25px;
-  border: 4px solid #218bc9;
-  border-radius: 8px;
+  border: 2px solid #218bc9;
 }
 
 main a {
@@ -205,10 +208,18 @@ main a {
   background: #004875;
 }
 
+.posts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
 .main-post {
   border: 1px solid white;
-  border-radius: 4px;
   margin-bottom: 1.5em;
+  height: 35vh;
+  width: 20vw;
+  overflow: hidden;
 }
 
 .post {
@@ -250,6 +261,21 @@ main a {
 .post .date {
   font-weight: 500;
   color: black;
+}
+
+.main-showcase {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border: 1px solid white;
+  padding: 1em;
+  margin: 2em auto;
+  width: 50vw;
+}
+
+.main-showcase a {
+  font-size: calc(1rem * 2);
+  font-weight: 400;
 }
 
 .date {

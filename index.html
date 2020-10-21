@@ -2,15 +2,32 @@
 layout: main
 ---
 
-<div class="posts">
+
+
+
+<h1>Recent Posts</h1>
+<section class="posts">
+  {% assign count = 0 %}
   {% for post in site.posts %}
+    {% assign count = count | plus:1 %}
     <a class="main-post-link" href="{{ site.baseurl }}{{ post.url }}">
       <article class="main-post post">
-        <h1>{{ post.title }}</h1>
+        <h2>{{ post.title }}</h2>
         <div class="entry">
           {{ post.excerpt }}
         </div>
       </article>
     </a>
+    {% if count == 6 %}
+      {% break %}
+    {% endif %}
   {% endfor %}
-</div>
+  </section>
+<hr />
+<h1>Posts of Merit</h1>
+<section class="main-showcase">
+  <ul>
+    <li><a href="{{ site.baseurl }}/Jellyfin-Initial">Jellyfin, Setting up the Server</a></li>
+    <li><a href="{{ site.baseurl }}/Switch-Modding">Nintendo Switch Modding</a></li>
+  </ul> 
+</section>

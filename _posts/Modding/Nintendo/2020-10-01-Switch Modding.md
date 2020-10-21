@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Switch Modding
+title: Nintendo Switch Modding
 ---
 This guide will help to guide newbies through the concept of modding their Nintendo Switch or maybe even provide some refreshers for even a seasoned veteran hopefully. Though before we proceed we have to get this out of the way first. 
 
