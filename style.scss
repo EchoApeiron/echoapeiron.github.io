@@ -66,13 +66,13 @@ p {
 }
 
 a {
-    color: #218bc9;
+    color: #9fdcff;
 }
 
 a:hover,
 a:focus,
 a:active {
-    color: #005688;
+    color: #218bc9;
 }
 
 em {
@@ -142,9 +142,6 @@ main {
     height: 100%;
     padding: 25px;
     border: 2px solid #218bc9;
-    a {
-        color: #9fdcff;
-    }
     @include mobile {
         width: 90vw; 
     }
