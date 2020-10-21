@@ -156,8 +156,6 @@ main {
     background: #004875;
 }
 
-
-
 .posts {
     display: flex;
     flex-wrap: wrap;
@@ -170,6 +168,10 @@ main {
     height: 35vh; 
     width: 20vw; 
     overflow: hidden;
+    @include mobile {
+        height: 50vh; 
+        width: 80vw;
+    }
 }
 
 .post {
@@ -224,6 +226,14 @@ main {
     a {
         font-size: calc(1rem * 2);
         font-weight: 400;
+    }
+
+    li {
+        padding-bottom: 0.5em; 
+    }
+
+    @include mobile {
+        width: 75vw; 
     }
 }
 

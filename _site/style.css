@@ -222,6 +222,13 @@ main a {
   overflow: hidden;
 }
 
+@media screen and (max-width: 640px) {
+  .main-post {
+    height: 50vh;
+    width: 80vw;
+  }
+}
+
 .post {
   padding: 1em;
 }
@@ -276,6 +283,16 @@ main a {
 .main-showcase a {
   font-size: calc(1rem * 2);
   font-weight: 400;
+}
+
+.main-showcase li {
+  padding-bottom: 0.5em;
+}
+
+@media screen and (max-width: 640px) {
+  .main-showcase {
+    width: 75vw;
+  }
 }
 
 .date {
