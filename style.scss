@@ -191,7 +191,7 @@ main {
     }
 
     @include mobile {
-        width: 50vw; 
+        width: 90vw; 
     }
 }
 
@@ -275,6 +275,10 @@ footer {
     border-top: 4px solid #218bc9;
     width: 100vw; 
     margin-top: 10em; 
+
+    @include tablet { 
+        margin-top: 2em; 
+    }
 }
 
 .footer-links { 
