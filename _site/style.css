@@ -146,12 +146,12 @@ header {
 }
 
 header a {
-  color: #186694;
+  color: #218bc9;
 }
 
 header a:hover, header a:active,
 header a:focus {
-  color: #218bc9;
+  color: #9fdcff;
 }
 
 .site-info {
@@ -195,6 +195,9 @@ main {
   background: #004875c4;
   grid-row: 3 / 5;
   grid-column: 1 / 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 70vw;
   height: 100%;
   padding: 25px;
@@ -217,6 +220,35 @@ main {
 .main-post:active,
 .main-post:focus {
   background: #004875;
+}
+
+.main-showcase {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  margin-bottom: 2em;
+  width: 65vw;
+}
+
+.main-showcase a {
+  color: #218bc9;
+  font-size: calc(1rem * 1.6);
+  font-weight: 400;
+}
+
+.main-showcase a:hover, .main-showcase a:focus,
+.main-showcase a:active {
+  color: #9fdcff;
+}
+
+.main-showcase li {
+  padding: 0 0 0.5em 1.5em;
+}
+
+@media screen and (max-width: 640px) {
+  .main-showcase {
+    width: 75vw;
+  }
 }
 
 .posts {
@@ -293,31 +325,6 @@ main {
 .post .date {
   font-weight: 500;
   color: black;
-}
-
-.main-showcase {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  border: 1px solid white;
-  padding: 1em;
-  margin: 2em auto;
-  width: 50vw;
-}
-
-.main-showcase a {
-  font-size: calc(1rem * 2);
-  font-weight: 400;
-}
-
-.main-showcase li {
-  padding-bottom: 0.5em;
-}
-
-@media screen and (max-width: 640px) {
-  .main-showcase {
-    width: 75vw;
-  }
 }
 
 .date {

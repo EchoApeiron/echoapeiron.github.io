@@ -1,4 +1,55 @@
-I"�%<p>This guide will help to guide newbies through the concept of modding their Nintendo Switch or maybe even provide some refreshers for even a seasoned veteran hopefully. Though before we proceed we have to get this out of the way first.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+
+    
+    <meta name="description" content="This guide will help to guide newbies through the concept of modding their Nintendo Switch or maybe even provide some refreshers for even a seasoned veteran hopefully. Though before we proceed we have to get this out of the way first.
+" />
+    <meta property="og:description" content="This guide will help to guide newbies through the concept of modding their Nintendo Switch or maybe even provide some refreshers for even a seasoned veteran hopefully. Though before we proceed we have to get this out of the way first.
+" />
+    
+    <meta name="author" content="Dion Pezzimenti" />
+
+    
+    <meta property="og:title" content="Nintendo Switch Modding" />
+    <meta property="twitter:title" content="Nintendo Switch Modding" />
+    
+    <title>Nintendo Switch Modding – Dion Pezzimenti – Technology Enthusiast</title>
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="shortcut icon" href="/images/icons/fav.ico">
+    <link rel="icon" type="image/png" href="/images/icons/fav-192.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/fav-180.png">
+    <link rel="alternate" type="application/rss+xml" title="Dion Pezzimenti - Technology Enthusiast" href="/feed.xml" />
+</head>
+<body>
+    <header>
+            <div class="site-info">
+                <div class="site-avatar">
+                    <a href="/"><img src="https://www.flaticon.com/svg/static/icons/svg/189/189001.svg" /></a>
+                </div>
+                <div class="header-text">
+                    <a class="header-title" href="/">Dion Pezzimenti</a>
+                    <p>Technology Enthusiast</p>
+                </div>
+            </div>
+            <nav class="site-nav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about/index.html">About</a></li>
+                </ul>
+            </nav>
+    </header>
+    <section class="masthead"></section>
+    <main class="container">
+        <article class="post">
+  <h1>Nintendo Switch Modding</h1>
+
+  <div class="entry">
+    <p>This guide will help to guide newbies through the concept of modding their Nintendo Switch or maybe even provide some refreshers for even a seasoned veteran hopefully. Though before we proceed we have to get this out of the way first.</p>
 
 <blockquote>
   <p>Modding your Nintendo Switch enables you with the ability to do a lot of things. This can include a series of the following things:</p>
@@ -104,7 +155,7 @@
 
 <p>The big things to note here is that we are formatting the first partition as FAT32. The other is that we are leaving about ~31GB of space <code class="language-plaintext highlighter-rouge">Unallocated Space After</code>. What this is saying is that we are leaving ~31GB of space free unpartitioned in the drive. At this point you can then create another FAT32 partition from the other remain unallocated space on the drive. Then hit apply in the bottom left corner to finish.</p>
 
-<h5 id="quickly-setup-tegra">Quickly Setup Tegra</h5>
+<h4 id="quickly-setup-tegra">Quickly Setup Tegra</h4>
 
 <p>Before doing anything let’s get Tegra setup as we will need to store our payloads somewhere safe. Simply unarchive the portable version (or install it if you choose that way), and then execute Tegra when it first opens. You will see that it is already populated with some Payloads. Simply select the top most one and hit the trash can to delete all the favorites.</p>
 
@@ -120,7 +171,7 @@
 
 <p><img src="https://drive.google.com/uc?export=view&amp;id=1ztW5ocnlY_ZaUk0AwWprP5GCrQGOQDlN" alt="Tegra Test Image" height="300px" /></p>
 
-<h5 id="copy-atmosphere-to-the-sd">Copy Atmosphere to the SD</h5>
+<h4 id="copy-atmosphere-to-the-sd">Copy Atmosphere to the SD</h4>
 
 <p>With the payload safely stashed away we need to get the custom firmware onto our SD card. Be sure on your system to grab the first partition we created. This is highly important as we left space remaining after for a reason and created the secondly partition like so for when we are doing Hekate stuff:</p>
 
@@ -130,7 +181,7 @@
 
 <p><img src="https://drive.google.com/uc?export=view&amp;id=1mU9qFV_diTJjRq2__TbxAITauBu0QswQ" alt="Windows Copy Atmosphere" height="250px" /></p>
 
-<h5 id="now-hekate-and-adding-lockpick_rcm">Now Hekate and Adding LockPick_RCM</h5>
+<h4 id="now-hekate-and-adding-lockpick_rcm">Now Hekate and Adding LockPick_RCM</h4>
 
 <p>Hekate is much the same as Atmosphere. Simple enough, unarchive, copy over contents to the root of the SD card:</p>
 
@@ -144,5 +195,55 @@
   <li>Stick the LockPick_RCM.bin file in this folder</li>
 </ul>
 
-<p><img src="https://drive.google.com/uc?export=view&amp;id=1dIFSrm5kENa8KMWYE5sw7uJYLeiD8ivh" alt="Windows Lockpick File" height="100px" /></p>
-:ET
+<p><img src="https://drive.google.com/uc?export=view&amp;id=1dIFSrm5kENa8KMWYE5sw7uJYLeiD8ivh" alt="Windows Lockpick File" height="150px" /></p>
+
+<p>This concludes the SD prep portion, now we start the real meat and potatoes.</p>
+
+<h3 id="hekate---backup-emunand-and-key-dumps">Hekate - Backup, EmuNAND, and Key Dumps</h3>
+
+
+  </div>
+
+  <div class="date">
+    Written on October  1, 2020
+  </div>
+
+  
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'echoapeiron-blog';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</article>
+
+    </main>
+    <footer>
+        
+<a href="mailto:dion.pezzimenti@protonmail.com"><i class="svg-icon email"></i></a>
+
+
+<a href="https://github.com/EchoApeiron"><i class="svg-icon github"></i></a>
+
+
+
+
+
+
+
+
+    </footer>
+    
+
+</body>
+</html>

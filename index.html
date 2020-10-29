@@ -2,9 +2,13 @@
 layout: main
 ---
 
-
-
-
+<section class="main-showcase">
+  <h1>Posts of Merit</h1>
+  <ul>
+    <li><a href="{{ site.baseurl }}/Jellyfin-Initial">Jellyfin, Setting up the Server</a></li>
+    <li><a href="{{ site.baseurl }}/Switch-Modding">Nintendo Switch Modding</a></li>
+  </ul> 
+</section>
 <h1>Recent Posts</h1>
 <section class="posts">
   {% assign count = 0 %}
@@ -23,12 +27,3 @@ layout: main
     {% endif %}
   {% endfor %}
   </section>
-<hr />
-<h1>Posts of Merit</h1>
-<section class="main-showcase">
-  <ul>
-    <li><a href="{{ site.baseurl }}/Jellyfin-Initial">Jellyfin, Setting up the Server</a></li>
-    <hr />
-    <li><a href="{{ site.baseurl }}/Switch-Modding">Nintendo Switch Modding</a></li>
-  </ul> 
-</section>

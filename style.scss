@@ -98,12 +98,12 @@ header {
     border-bottom: 4px solid #218bc9;
 
     a {
-        color: #186694;
+        color: #218bc9;
     }
 
     a:hover, a:active,
     a:focus {
-        color: #218bc9;
+        color: #9fdcff;
     }
 }   
 
@@ -147,6 +147,9 @@ main {
     background: #004875c4; 
     grid-row: 3 / 5; 
     grid-column: 1 / 2;
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
     width: 70vw; 
     height: 100%;
     padding: 25px;
@@ -163,6 +166,33 @@ main {
 .main-post:active,
 .main-post:focus {
     background: #004875;
+}
+
+.main-showcase {
+    display: flex; 
+    flex-direction: column;
+    padding: 1em; 
+    margin-bottom: 2em; 
+    width: 65vw; 
+
+    a {
+        color: #218bc9;
+        font-size: calc(1rem * 1.6);
+        font-weight: 400;
+    }
+
+    a:hover, a:focus,
+    a:active {
+        color: #9fdcff;
+    }
+
+    li {
+        padding: 0 0 0.5em 1.5em; 
+    }
+
+    @include mobile {
+        width: 75vw; 
+    }
 }
 
 .posts {
@@ -228,29 +258,6 @@ main {
     .date {
         font-weight: 500;
         color: black; 
-    }
-}
-
-.main-showcase {
-    display: flex; 
-    flex-direction: row;
-    justify-content: center;
-    border: 1px solid white; 
-    padding: 1em; 
-    margin: 2em auto;
-    width: 50vw; 
-
-    a {
-        font-size: calc(1rem * 2);
-        font-weight: 400;
-    }
-
-    li {
-        padding-bottom: 0.5em; 
-    }
-
-    @include mobile {
-        width: 75vw; 
     }
 }
 
