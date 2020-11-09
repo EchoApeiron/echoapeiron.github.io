@@ -209,7 +209,7 @@ main {
 .main-post {
     border: 1px solid white;  
     margin-bottom: 1.5em; 
-    height: 40vh; 
+    height: 45vh; 
     width: 20vw; 
     overflow: hidden;
     @include low-res {
@@ -217,7 +217,7 @@ main {
         height: 55vh; 
     }
     @include tablet {
-        height: 60vh; 
+        height: 45vh; 
         width: 35vw;
     }
     @include mobile {
