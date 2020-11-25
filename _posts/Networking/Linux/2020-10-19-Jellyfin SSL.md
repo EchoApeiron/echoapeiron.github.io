@@ -8,7 +8,7 @@ image: /assets/img/posts/jellyfin.png
 ---
 In my last entry I talked about the initial server setup for my Jellyfin server. Some of the basic things I do whenever setting up a Linux host then getting the application installed. If you haven't read that and need to please see the link below: 
 
-[Jellyfin, Setting up the Server]({{ site.baseurl }}/Jellyfin-Initial)
+[Jellyfin, Setting up the Server]({{ site.baseurl }}/posts/Jellyfin-Initial)
 
 Where we left off you were at the point where you were configuring the application. Jellyfin runs off port 8096 by default for it's base traffic. We will need this port as I haven't gotten the app to use the reverse proxy we are going to build. But for our web browser we will be accessing the site via port 80 and port 443. 
 
@@ -184,5 +184,5 @@ Now from any web browser you should be able to domain you setup and be redirecte
 
 There is only one more exploit in this adventure and that will be centralizing the login. If you still have yet to setup a Jellyfin server I will provide the link the initial setup again down below: 
 
-- [Jellyfin, Setting up the Server]({{ site.baseurl }}/Jellyfin-Initial)
-- [Jellyfin, Centralizing Authentication with AD]({{ site.baseurl }}/Jellyfin-LDAP)
+- [Jellyfin, Setting up the Server]({{ site.baseurl }}/posts/Jellyfin-Initial)
+- [Jellyfin, Centralizing Authentication with AD]({{ site.baseurl }}/posts/Jellyfin-LDAP)

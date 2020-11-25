@@ -8,8 +8,8 @@ image: /assets/img/posts/jellyfin.png
 ---
 Onto what is currently the final installment of my Jellyfin server expedition. So far we have done some base server setup, configured the base application, did some networking to enable remote access, and deployed a reverse proxy to do our SSL offloading. Quite a bit, and if you need a review here are the links to the previous blog post:
 
-- [Jellyfin, Setting up the Server]({{ site.baseurl }}/Jellyfin-Initial)
-- [Jellyfin, Securing with SSL Certificates]({{ site.baseurl }}/Jellyfin-SSL)
+- [Jellyfin, Setting up the Server]({{ site.baseurl }}/posts/Jellyfin-Initial)
+- [Jellyfin, Securing with SSL Certificates]({{ site.baseurl }}/postsJellyfin-SSL)
 
 Now we are going to do one other really cool thing and tie not only the application but our server into our central authentication server. For this we will be using the old trite and true Microsoft Active Directory. One Windows dominates with this technology and two it works very well out of the box with minimal configuration. We may touch on a few things like OUs, Users, and Groups. Beyond that though it will be assumed you have a Domain Controller or some sort of LDAP server already deployed. As we will be using LDAP specifically any LDAP server will be sufficient. You will need to know how to get your own Distinguished Names (or DNs as they are referred to sometimes). 
 

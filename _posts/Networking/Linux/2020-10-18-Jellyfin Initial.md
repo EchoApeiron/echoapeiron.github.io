@@ -95,5 +95,5 @@ Once you have the packages you should be able to access the site via http://<hos
 
 
 
-- [Jellyfin, Securing with SSL Certificates]({{ site.baseurl }}/Jellyfin-SSL)
-- [Jellyfin, Centralizing Authentication with AD]({{ site.baseurl }}/Jellyfin-LDAP)
+- [Jellyfin, Securing with SSL Certificates]({{ site.baseurl }}/posts/Jellyfin-SSL)
+- [Jellyfin, Centralizing Authentication with AD]({{ site.baseurl }}/posts/Jellyfin-LDAP)
