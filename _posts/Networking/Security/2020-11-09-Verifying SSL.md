@@ -1,7 +1,9 @@
 ---
-layout: post
 title: OpenSSL, Verifying SSL
-tags: networking openssl certificates
+author: Dion Pezzimenti
+tags: [Networking, Security]
+categories: [SSL, Certificates]
+date: 2020-11-09 12:30:00 +0800
 ---
 As you may recall I indicated an issue in my article Jellyfin, Networking and SSL. This issue was grave to the extent that it didn't allow the web app to connect through the reverse proxy. The below link will allow you to re-read if needed, but ultimately it was an issue to how the SSL certificate was implemented. 
 

@@ -1,4 +1,4 @@
-I"�4<p>Onto what is currently the final installment of my Jellyfin server expedition. So far we have done some base server setup, configured the base application, did some networking to enable remote access, and deployed a reverse proxy to do our SSL offloading. Quite a bit, and if you need a review here are the links to the previous blog post:</p>
+I"�9<p>Onto what is currently the final installment of my Jellyfin server expedition. So far we have done some base server setup, configured the base application, did some networking to enable remote access, and deployed a reverse proxy to do our SSL offloading. Quite a bit, and if you need a review here are the links to the previous blog post:</p>
 
 <ul>
   <li><a href="/Jellyfin-Initial">Jellyfin, Setting up the Server</a></li>
@@ -17,7 +17,15 @@
 
 <p>Since Active Directory is very DNS driven we need to make sure we can communicate with the DNS server that is hosting the zone for our Active Directory. You can do this by using Netplan (which you may have used to configure your static… I didn’t for this for sake of ease). For this we just make a small config change to a YAML file in the Netplan configuration you can find it using the <code class="language-plaintext highlighter-rouge">ls</code> command on the <code class="language-plaintext highlighter-rouge">/etc/netplan</code> directory. Then simply back it up and edit as follows:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp /etc/netplan/01-netcfg.yaml /etc/netplan/01-netcfg.yaml.bkup
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>cp /etc/netplan/01-netcfg.yaml /etc/netplan/01-netcfg.yaml.bkup
 vim /etc/netplan/01-netcfg.yaml
 ...
 
@@ -25,11 +33,27 @@ vim /etc/netplan/01-netcfg.yaml
       addresses: [192.168.0.100]
 
 netplan apply 
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>One important fact about YAML is that tab characters are illegal. So be sure that you are indenting using only the spacebar or it will break the file. We then need to discover the domain using our <code class="language-plaintext highlighter-rouge">realm</code> command and should get an output like the following if everything is working properly, and your server can communicate with the Active Directory server’s DNS:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@hinata:/etc/netplan# realm discover domain.com
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="rouge-code"><pre>root@hinata:/etc/netplan# realm discover domain.com
 domain.com
   type: kerberos
   realm-name: DOMAIN.COM
@@ -45,7 +69,7 @@ domain.com
   required-package: samba-common-bin
   login-formats: %U
   login-policy: allow-realm-logins
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>With the domain discoverable this means we can then join it. To do so we are going to specify a user that isn’t the Administrator account (in my domain it is disabled). If you are using your Administrator account you don’t need to specify a user, but otherwise do as I do with the join command below:</p>
 
@@ -53,11 +77,15 @@ domain.com
 
 <p>You will then be prompted for the password. If everything worked you will get no notification which can be daunting but rest assured that’s good. If an error is thrown then that’s bad. Before we are able to test any users though we have to make some changes to PAM (Pluggable Authentication Module). Make a backup of the config file, but edit the file below as shown and then add the following entry as the very last line of the file:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vim /etc/pam.d/commoon-session
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>vim /etc/pam.d/commoon-session
 ...
 
 session optional        pam_mkhomedir.so skel=/etc/skel umask=077
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>That will make sure home directories are created as our domain users login to the server. Now we can do do a test to make sure we can switch into a domain user. We can use the <code class="language-plaintext highlighter-rouge">su</code> command to accomplish this as so:</p>
 
@@ -93,7 +121,23 @@ session optional        pam_mkhomedir.so skel=/etc/skel umask=077
 
 <p>From there you can modify the <code class="language-plaintext highlighter-rouge">LDAP-Auth.xml</code> file. Below is the example of my configuration file, but I will explain what each value means:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;?xml version="1.0"?&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="rouge-code"><pre>&lt;?xml version="1.0"?&gt;
 &lt;PluginConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;LdapServer&gt;directory.server.com&lt;/LdapServer&gt;
   &lt;LdapBaseDn&gt;DC=server,DC=com&lt;/LdapBaseDn&gt;
@@ -109,32 +153,41 @@ session optional        pam_mkhomedir.so skel=/etc/skel umask=077
   &lt;UseStartTls&gt;false&lt;/UseStartTls&gt;
   &lt;SkipSslVerify&gt;false&lt;/SkipSslVerify&gt;
 &lt;/PluginConfiguration&gt;
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>There is a lot going on in this configuration. Firstly we have these three values that really help to define how we will connect and start searching our domain:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;LdapServer&gt;directory.server.com&lt;/LdapServer&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>&lt;LdapServer&gt;directory.server.com&lt;/LdapServer&gt;
 &lt;LdapBaseDn&gt;DC=server,DC=com&lt;/LdapBaseDn&gt;
 &lt;LdapPort&gt;389&lt;/LdapPort&gt;
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Our <em>LdapServer</em> is the main node we will be using to integrate to our AD environment. As well it will be the one we issue all our LDAP requests to. For our <em>LdapBaseDn</em> it refers to the starting location in the Organizational Units to start searching in the domain. For this we pretty much specify the base domain as the search start. And the <em>LdapPort</em> is just the port that will be used to form the LDAP socket for queries.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;LdapSearchAttributes&gt;SamAccountName&lt;/LdapSearchAttributes&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>&lt;LdapSearchAttributes&gt;SamAccountName&lt;/LdapSearchAttributes&gt;
 &lt;LdapUsernameAttribute&gt;SamAccountName&lt;/LdapUsernameAttribute&gt;
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>These two attributes pretty much state what we are looking for as a value to check against for our authentication. It is a Name Attribute specific to Windows domains. So we will gloss over it as it is still a pretty widely used field.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;LdapSearchFilter&gt;(memberOf=CN=Jellyfin-Users,OU=O-Groups,DC=server,DC=com)&lt;/LdapSearchFilter&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>&lt;LdapSearchFilter&gt;(memberOf=CN=Jellyfin-Users,OU=O-Groups,DC=server,DC=com)&lt;/LdapSearchFilter&gt;
 &lt;LdapAdminFilter&gt;(memberOf=CN=Jellyfin-Admins,OU=O-Groups,DC=server,DC=com)&lt;/LdapAdminFilter&gt;
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>These two filters though are extremely important. These two don’t just simply look for Organizational Units in our directory. They go and look for specific User Groups in our directory. Check who the members of these groups are and then enables them to be created in Jellyfin. However I did notice a small glitch. The admin group doesn’t seem to work correctly. But you definitely want to utilize the <code class="language-plaintext highlighter-rouge">LdapSearchFilter</code> as this will dictate the users in your directory that can use the app. The <code class="language-plaintext highlighter-rouge">LdapAdminFilter</code> is meant to act as a group that dictates who is a Jellyfin admin and who isn’t.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;LdapBindUser&gt;CN=Jellyfin LDAP,OU=Service-Accounts,OU=O-Users,DC=server,DC=com&lt;/LdapBindUser&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>&lt;LdapBindUser&gt;CN=Jellyfin LDAP,OU=Service-Accounts,OU=O-Users,DC=server,DC=com&lt;/LdapBindUser&gt;
 &lt;LdapBindPassword&gt;J3llyfin&lt;/LdapBindPassword&gt;
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>These two values are the bread and butter though. The <code class="language-plaintext highlighter-rouge">LdapBindUser</code> will be the directory user that Jellyfin authenticates with to do LDAP queries in our domain. If there is an account that doesn’t have sufficient privleges or if this is not entered correctly then you won’t be able to authenticate using your domain at all. Secondly maike sure the <code class="language-plaintext highlighter-rouge">LdapBindPassword</code> is also set to the correct value.</p>
 

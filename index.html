@@ -1,29 +1,12 @@
 ---
-layout: main
----
+layout: home
+breadcrumb:
+  -
+    label: Posts
 
-<section class="main-showcase">
-  <h1>Posts of Merit</h1>
-  <ul>
-    <li><a href="{{ site.baseurl }}/Jellyfin-Initial">Jellyfin, Setting up the Server</a></li>
-    <li><a href="{{ site.baseurl }}/Switch-Modding">Nintendo Switch Modding</a></li>
-  </ul> 
-</section>
-<h1>Recent Posts</h1>
-<section class="posts">
-  {% assign count = 0 %}
-  {% for post in site.posts %}
-    {% assign count = count | plus:1 %}
-    <a class="main-post-link" href="{{ site.baseurl }}{{ post.url }}">
-      <article class="main-post post">
-        <h2>{{ post.title }}</h2>
-        <div class="entry">
-          {{ post.excerpt }}
-        </div>
-      </article>
-    </a>
-    {% if count == 6 %}
-      {% break %}
-    {% endif %}
-  {% endfor %}
-  </section>
+# Index page
+# v2.0
+# https://github.com/cotes2020/jekyll-theme-chirpy
+# © 2017-2019 Cotes Chung
+# MIT License
+---

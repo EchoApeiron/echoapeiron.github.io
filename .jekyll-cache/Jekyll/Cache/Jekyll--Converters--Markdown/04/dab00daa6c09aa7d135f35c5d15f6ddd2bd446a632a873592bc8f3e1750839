@@ -1,4 +1,4 @@
-I"$2<p>In my last entry I talked about the initial server setup for my Jellyfin server. Some of the basic things I do whenever setting up a Linux host then getting the application installed. If you haven’t read that and need to please see the link below:</p>
+I"j6<p>In my last entry I talked about the initial server setup for my Jellyfin server. Some of the basic things I do whenever setting up a Linux host then getting the application installed. If you haven’t read that and need to please see the link below:</p>
 
 <p><a href="/Jellyfin-Initial">Jellyfin, Setting up the Server</a></p>
 
@@ -79,7 +79,17 @@
 
 <p>Then you can copy your cert files right to here. You can verify the files have the proper permissions as the other install files for nginx using <code class="language-plaintext highlighter-rouge">ls -la</code>. It would be best to compare the cert against maybe the main config file like so:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@server:~# ls -la /etc/nginx/nginx.conf
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre>root@server:~# ls -la /etc/nginx/nginx.conf
 -rw-r--r-- 1 root root 1490 Oct 16 07:59 /etc/nginx/nginx.conf
 root@server:~# ls -la /etc/nginx/ssl/home/
 total 48
@@ -89,7 +99,7 @@ drwxr-xr-x 3 root root 4096 Oct 16 08:33 ..
 -rw-r--r-- 1 root root 1679 Oct 16 07:56 server.key
 -rw-r--r-- 1 root root 2065 Oct 16 08:50 server.pem
 
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>You might notice that mine are named a bit differently. Your certs most likely came in a plain text form which actually means they are in a PEM format (see below for more information, it is a ServerFault question but very detailed). So I just renamed my certificate chain file and my public certficate to a pem keeping my private key as a .key file to distinguish them:</p>
 
@@ -99,7 +109,36 @@ drwxr-xr-x 3 root root 4096 Oct 16 08:33 ..
 
 <p><code class="language-plaintext highlighter-rouge">vim /etc/nginx/conf.d/reverse-proxy.conf</code></p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>upstream backends {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+</pre></td><td class="rouge-code"><pre>upstream backends {
     server 192.168.0.245:8096;
 }
 
@@ -128,23 +167,31 @@ server {
         proxy_set_header X-Forwarded-Host $http_host;
     }
 }
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Let’s take a quick moment to break down the important stuff, most of this is just standard HTTP header stuff, but there is some things that you should be aware of so you know how it works:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>upstream backends {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>upstream backends {
     server 192.168.0.245:8096;
 }
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>This defines a variable effectively called <code class="language-plaintext highlighter-rouge">backends</code>. We tell <strong><em>nginx</em></strong> here that we have a host that has an IP address of 192.168.0.245 and will be listening on Port 8096 for our requests.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>server {
     listen 80;
     server_name &lt;server_url&gt;; 
     return 301 https://$host$request_uri;
 }
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>This defines effectively what could be considered our first virtual directory. It has <strong><em>nginx</em></strong> listen on port 80 for any requests to our server URL. It does one more thing where it will also issue a HTTP 301:</p>
 
@@ -152,7 +199,15 @@ server {
 
 <p>This is the HTTP server or <strong><em>nginx</em></strong> in our case that the page that was hosted on port 80 has been moved. It also specifies the URI string that should be connected to now instead:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>server {
     listen 443 ssl;  
     server_name &lt;server_url&gt;;
     allow all; 
@@ -160,11 +215,21 @@ server {
     ssl_certificate /etc/nginx/ssl/home/server.pem;
     ssl_certificate_key /etc/nginx/ssl/home/server.key;
     ssl_trusted_certificate /etc/nginx/ssl/home/chain.pem;
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>With our previous declaration we said that we moved the page to effectively the same URI string but on Port 443 or HTTPS. So we make another declaration of a server listening on port 443. However we specify we allow all connections and point to the locations of certificates so that the service runs proper.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    location / {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre>    location / {
         proxy_pass http://backends;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
@@ -174,7 +239,7 @@ server {
         proxy_set_header X-Forwarded-Host $http_host;
     }
 }
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Then lastly we tell what server URI’s that <strong><em>nginx</em></strong> is proxying for and specifies it to connect to the backends we defined earlier. It also creates some variables with some additional header information that will be added to the packet to make sure the proxying continues to work.</p>
 

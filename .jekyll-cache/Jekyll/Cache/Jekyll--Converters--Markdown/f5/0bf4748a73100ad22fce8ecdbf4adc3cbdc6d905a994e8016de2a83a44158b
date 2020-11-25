@@ -1,4 +1,4 @@
-I"�<p>Recently I learned about a server application called Jellyfin. A media server replacement that really aims to compete with the likes of Plex. I have been a Plex user for some time and even have a life time subscription. Plex being so simple to use with such a community it made the choice hard. So why were some reasons I went ahead and deployed a Jellyfin server:</p>
+I"�!<p>Recently I learned about a server application called Jellyfin. A media server replacement that really aims to compete with the likes of Plex. I have been a Plex user for some time and even have a life time subscription. Plex being so simple to use with such a community it made the choice hard. So why were some reasons I went ahead and deployed a Jellyfin server:</p>
 
 <ol>
   <li>It’s Opensource</li>
@@ -41,12 +41,17 @@
 
 <p>So in this configurtion file we are looking to do three things. Change the default port from 22 (SSH Standard) to a non-standard port. For this we will choose 8822. As well we are going to disable the ability to login with a password via SSH as well as disabling the ability for the root account to login through SSH. Just look for the three directives using the text editors search features of by manually reading the config file… your choice:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Port 8822
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>Port 8822
 ...
 PermitRootLogin no 
 ...
 PasswordAuthentication no
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Finally you can restart the SSHD daemon, when we do this our session will be disrupted. So you will need to reaccess the server via SSH using the new port 8822 instead of 22. If you did everything right then you should login via your new key without issue. If there is one you will need to console to the machine and fix what ever was incorrectly done.</p>
 
@@ -54,11 +59,15 @@ PasswordAuthentication no
 
 <p>The last thing we will want to do at a subsystem level is configure our hosts firewall. We will be enabling AD authnetication on the machine, but I will cover that when we integrate Jellyfin to AD. With Ubuntu it comes loaded with a software call <strong><em>ufw</em></strong>. We want to make sure that we are able to SSH to our server but still able to access the necessary web ports for Jellyfin. To do this we need to issue the following ufw commands:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ufw allow 8822
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>ufw allow 8822
 ufw allow http
 ufw allow https
 ufw allow 8096
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>The got’cha is we can’t see <strong><em>ufw</em></strong> rule sets without enabling them so if you get them wrong you will be kicked from your session and have to console to the machine. If you are confident you added the right rules you can then enable the firewall:</p>
 
@@ -76,17 +85,23 @@ ufw allow 8096
 
 <p>Then we can create a credential file in the root home folder with the following information:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vim /root/nas.smb 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>vim /root/nas.smb 
 ...
 
 user=&lt;share_admin&gt;
 password=&lt;admin_password&gt;
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Then an entry in the <strong><em>/etc/fstab</em></strong> can be added:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//10.0.0.100/Volume_1   /media/nas      cifs    uid=0,credentials=/root/nas.smb        0 0
-</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>//10.0.0.100/Volume_1   /media/nas      cifs    uid=0,credentials=/root/nas.smb        0 0
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Now with all the base work done we can install Jellyfin. Really this article is about some of the hardships I faced with configuring Jellyfin and the documentation on their site is actually <strong>really great</strong> for just installing the application. So I actually advise you follow these steps to install it on Ubuntu and configure the necessary repositories:</p>
 

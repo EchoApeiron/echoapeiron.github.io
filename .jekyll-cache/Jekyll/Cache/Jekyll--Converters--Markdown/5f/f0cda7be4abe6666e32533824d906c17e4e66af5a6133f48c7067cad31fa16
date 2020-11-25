@@ -1,4 +1,4 @@
-I"�<p>As you may recall I indicated an issue in my article Jellyfin, Networking and SSL. This issue was grave to the extent that it didn’t allow the web app to connect through the reverse proxy. The below link will allow you to re-read if needed, but ultimately it was an issue to how the SSL certificate was implemented.</p>
+I"y<p>As you may recall I indicated an issue in my article Jellyfin, Networking and SSL. This issue was grave to the extent that it didn’t allow the web app to connect through the reverse proxy. The below link will allow you to re-read if needed, but ultimately it was an issue to how the SSL certificate was implemented.</p>
 
 <p><a href="/Jellyfin-SSL">Jellyfin, Securing with SSL Certificates</a></p>
 
@@ -14,12 +14,17 @@
 
 <p>Ultimately we are looking for the below:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Start Time: 1604962023
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>Start Time: 1604962023
 Timeout   : 7200 (sec)
 Verify return code: 0 (ok)
 Extended master secret: no
 Max Early Data: 0
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>If we see that Verify return code is 0 then we know that the certificate is applied successfully. However in my instance I didn’t get a good return code. So what might have gone wrong? Well for me I used Namecheap to acquire my certificate. So I did a simple Google search for <em>Namecheap Install SSL Certificate</em>. It took me to the exact article I needed.</p>
 
