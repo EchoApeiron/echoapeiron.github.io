@@ -3,7 +3,7 @@ title: Jellyfin, Centralizing Authentication with AD
 author: Dion Pezzimenti
 tags: [Networking, Linux, LDAP, Active Directory]
 categories: [Jellyfin, Authentication]
-date: 2020-10-19 10:00:00 +0800
+date: 2020-10-20 10:00:00 +0800
 image: /assets/img/posts/jellyfin.png
 ---
 Onto what is currently the final installment of my Jellyfin server expedition. So far we have done some base server setup, configured the base application, did some networking to enable remote access, and deployed a reverse proxy to do our SSL offloading. Quite a bit, and if you need a review here are the links to the previous blog post:
@@ -130,7 +130,7 @@ There is a lot going on in this configuration. Firstly we have these three value
 <LdapPort>389</LdapPort>
 ```
 
-Our _LdapServer_ is the main node we will be using to integrate to our AD environment. As well it will be the one we issue all our LDAP requests to. For our _LdapBaseDn_ it refers to the starting location in the Organizational Units to start searching in the domain. For this we pretty much specify the base domain as the search start. And the _LdapPort_ is just the port that will be used to form the LDAP socket for queries. 
+Our `LdapServer` is the main node we will be using to integrate to our AD environment. As well it will be the one we issue all our LDAP requests to. For our _LdapBaseDn_ it refers to the starting location in the Organizational Units to start searching in the domain. For this we pretty much specify the base domain as the search start. And the _LdapPort_ is just the port that will be used to form the LDAP socket for queries. 
 
 ```
 <LdapSearchAttributes>SamAccountName</LdapSearchAttributes>

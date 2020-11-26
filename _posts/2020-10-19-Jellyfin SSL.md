@@ -32,7 +32,7 @@ I suggest using Namecheap as the name implies, they have some pretty good rates 
 
 > [How to Buy a Domain Name - NameCheap](https://www.namecheap.com/blog/how-to-buy-a-domain-name-dp/)
 
-For now you can just setup the initial domain. Even add a DNS host entry for your media server now as you will need this for the Certificate Signing Request or CSR we are about to submit. I made mine ```home.domain.com```, but here are some examples and combinations you could use: 
+For now you can just setup the initial domain. Even add a DNS host entry for your media server now as you will need this for the Certificate Signing Request or CSR we are about to submit. I made mine `home.domain.com`, but here are some examples and combinations you could use: 
 
 > - jellyfin.domain.com
 > - jellyfin.domain.xyz
@@ -57,19 +57,18 @@ You can name your PRIVATEKEY.key anything, but keep the extension .key. As for t
 
 This can be a bit of a long winded process but in the end after you have done the domain validation and everything the certificate should be sent to the email you provided. So all you need to do is copy them to the server. For now you can keep the cert file (the CRT file) and the bundle file (or authority chain but should be named ca-bundle) with the private key. 
 
-This next part is a really huge drag and I'm not sure why I couldn't figure it out but the native app SSL support isn't really the greatest. While I would of loved to figure out how it worked and will keep working on it we are going to use **_nginx_** to reverse proxy and do the SSL termination for Jellyfin. 
+This next part we are going to use `nginx` to reverse proxy and do the SSL termination for Jellyfin. Firstly we need to install the `nginx` software on the server. This is really easy all we need to do is update our apt repository (which probably has already been done), and then install the package: 
 
-So firstly we need to install the **_nginx_** software on the server. This is really easy all we need to do is update our apt repository (which probably has already been done), and then install the package: 
+```
+apt update
+apt install nginx 
+```
 
-> apt update
-> 
-> apt install nginx 
-
-We can then create a folder in **_nginx_** config folder to store our certificates using the mkdir command: 
+We can then create a folder in `nginx` config folder to store our certificates using the mkdir command: 
 
 ```mkdir -p /etc/nginx/ssl/<domain>```
 
-Then you can copy your cert files right to here. You can verify the files have the proper permissions as the other install files for nginx using ```ls -la```. It would be best to compare the cert against maybe the main config file like so: 
+Then you can copy your cert files right to here. You can verify the files have the proper permissions as the other install files for nginx using `ls -la`. It would be best to compare the cert against maybe the main config file like so: 
 
 ```
 root@server:~# ls -la /etc/nginx/nginx.conf
@@ -87,6 +86,26 @@ drwxr-xr-x 3 root root 4096 Oct 16 08:33 ..
 You might notice that mine are named a bit differently. Your certs most likely came in a plain text form which actually means they are in a PEM format (see below for more information, it is a ServerFault question but very detailed). So I just renamed my certificate chain file and my public certficate to a pem keeping my private key as a .key file to distinguish them: 
 
 [What is a PEM File - Question from ServerFault](https://serverfault.com/questions/9708/what-is-a-pem-file-and-how-does-it-differ-from-other-openssl-generated-key-file)
+
+Before we are able to use the certificate files though. Since we got them from name cheap we will have to concatenate (join together essentially) the chain and the server.pem file. We can do this simply but using the `cat` command in Linux:
+
+```cat chain.pem server.pem > full_chain.pem```
+
+When we list the contents make sure they have the same permissions and everything as the other files:
+
+```
+root@server:~# ls -la /etc/nginx/nginx.conf
+-rw-r--r-- 1 root root 1490 Oct 16 07:59 /etc/nginx/nginx.conf
+root@server:~# ls -la /etc/nginx/ssl/home/
+total 48
+drwxr-xr-x 2 root root 4096 Oct 17 00:35 .
+drwxr-xr-x 3 root root 4096 Oct 16 08:33 ..
+-rw-r--r-- 1 root root 4135 Oct 16 08:50 chain.pem
+-rw-r--r-- 1 root root 1679 Oct 17 00:35 full_chain.pem
+-rw-r--r-- 1 root root 1679 Oct 16 07:56 server.key
+-rw-r--r-- 1 root root 2065 Oct 16 08:50 server.pem
+
+```
 
 Finally we just need to tell nginx how to proxy our request but also specify the certificate information and to use SSL in order have a secure connection. Create the following file then add a configuration like the example provided using your relavant server information: 
 
@@ -108,9 +127,8 @@ server {
     server_name <server_url>;
     allow all; 
 
-    ssl_certificate /etc/nginx/ssl/home/server.pem;
+    ssl_certificate /etc/nginx/ssl/home/full_chain.pem;
     ssl_certificate_key /etc/nginx/ssl/home/server.key;
-    ssl_trusted_certificate /etc/nginx/ssl/home/chain.pem;
 
     location / {
         proxy_pass http://backends;
@@ -132,7 +150,7 @@ upstream backends {
 }
 ```
 
-This defines a variable effectively called `backends`. We tell **_nginx_** here that we have a host that has an IP address of 192.168.0.245 and will be listening on Port 8096 for our requests. 
+This defines a variable effectively called `backends`. We tell `nginx` here that we have a host that has an IP address of 192.168.0.245 and will be listening on Port 8096 for our requests. 
 
 ```
 server {
@@ -142,11 +160,11 @@ server {
 }
 ```
 
-This defines effectively what could be considered our first virtual directory. It has **_nginx_** listen on port 80 for any requests to our server URL. It does one more thing where it will also issue a HTTP 301:
+This defines effectively what could be considered our first virtual directory. It has `nginx` listen on port 80 for any requests to our server URL. It does one more thing where it will also issue a HTTP 301:
 
 [HTTP 301 - Mozilla](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/301)
 
-This is the HTTP server or **_nginx_** in our case that the page that was hosted on port 80 has been moved. It also specifies the URI string that should be connected to now instead: 
+This is the HTTP server or `nginx` in our case that the page that was hosted on port 80 has been moved. It also specifies the URI string that should be connected to now instead: 
 
 ```
 server {
@@ -154,9 +172,8 @@ server {
     server_name <server_url>;
     allow all; 
 
-    ssl_certificate /etc/nginx/ssl/home/server.pem;
+    ssl_certificate /etc/nginx/ssl/home/full_chain.pem;
     ssl_certificate_key /etc/nginx/ssl/home/server.key;
-    ssl_trusted_certificate /etc/nginx/ssl/home/chain.pem;
 ```
 
 With our previous declaration we said that we moved the page to effectively the same URI string but on Port 443 or HTTPS. So we make another declaration of a server listening on port 443. However we specify we allow all connections and point to the locations of certificates so that the service runs proper.
@@ -174,13 +191,13 @@ With our previous declaration we said that we moved the page to effectively the 
 }
 ```
 
-Then lastly we tell what server URI's that **_nginx_** is proxying for and specifies it to connect to the backends we defined earlier. It also creates some variables with some additional header information that will be added to the packet to make sure the proxying continues to work. 
+Then lastly we tell what server URI's that `nginx` is proxying for and specifies it to connect to the backends we defined earlier. It also creates some variables with some additional header information that will be added to the packet to make sure the proxying continues to work. 
 
 Finally we just restart the service and all should be setup and ready to go:
 
 ```systemctl restart nginx```
 
-Now from any web browser you should be able to domain you setup and be redirected to a secure HTTPS page. However it is a proxied connection to your Jellyfin server. As I mentioned earlier in this post that I can't get the Jellyfin mobile app to work with my reverse proxy. But I will make an update if I figure out why that is. For now we punched a hole in your router for 8096 the native Jellyfin port so you should be able to just use that for now.
+Now from any web browser or the web app you should be able to use the domain you setup and be redirected to a secure HTTPS page. However it is a proxied connection to your Jellyfin server. 
 
 There is only one more exploit in this adventure and that will be centralizing the login. If you still have yet to setup a Jellyfin server I will provide the link the initial setup again down below: 
 

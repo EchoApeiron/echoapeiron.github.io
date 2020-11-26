@@ -52,7 +52,7 @@ Finally you can restart the SSHD daemon, when we do this our session will be dis
 
 ### Local Firewall Using ufw
 
-The last thing we will want to do at a subsystem level is configure our hosts firewall. We will be enabling AD authnetication on the machine, but I will cover that when we integrate Jellyfin to AD. With Ubuntu it comes loaded with a software call **_ufw_**. We want to make sure that we are able to SSH to our server but still able to access the necessary web ports for Jellyfin. To do this we need to issue the following ufw commands: 
+The last thing we will want to do at a subsystem level is configure our hosts firewall. We will be enabling AD authnetication on the machine, but I will cover that when we integrate Jellyfin to AD. With Ubuntu it comes loaded with a software call `ufw`. We want to make sure that we are able to SSH to our server but still able to access the necessary web ports for Jellyfin. To do this we need to issue the following ufw commands: 
 
 ```
 ufw allow 8822
@@ -61,15 +61,19 @@ ufw allow https
 ufw allow 8096
 ```
 
-The got'cha is we can't see **_ufw_** rule sets without enabling them so if you get them wrong you will be kicked from your session and have to console to the machine. If you are confident you added the right rules you can then enable the firewall: 
+The got'cha is we can't see `ufw` rule sets without enabling them so if you get them wrong you will be kicked from your session and have to console to the machine. If you are confident you added the right rules you can then enable the firewall: 
 
-> ufw enable
+```
+ufw enable
+```
 
 ### Lastly Configure the NAS Share and Install Jellyfin 
 
-In order for Jellyfin to play media it has to know about where it is. For my setup I use as NAS that runs CIFS so you will need **_cifs-utils_** if you are going down the same route as me: 
+In order for Jellyfin to play media it has to know about where it is. For my setup I use as NAS that runs CIFS so you will need `cifs-utils` if you are going down the same route as me: 
 
-> apt install cifs-utils 
+```
+apt install cifs-utils 
+```
 
 Then we can create a credential file in the root home folder with the following information: 
 
@@ -81,7 +85,7 @@ user=<share_admin>
 password=<admin_password>
 ```
 
-Then an entry in the **_/etc/fstab_** can be added:
+Then an entry in the `/etc/fstab` can be added:
 
 ```
 //10.0.0.100/Volume_1   /media/nas      cifs    uid=0,credentials=/root/nas.smb        0 0
@@ -91,7 +95,7 @@ Now with all the base work done we can install Jellyfin. Really this article is 
 
 > [Install Jellyfin on Ubuntu](https://jellyfin.org/docs/general/administration/installing.html#ubuntu)
 
-Once you have the packages you should be able to access the site via http://<host>:8096. From there it will have you create your initial administrator user, as well as setup your libraries. You might immediately find difficulties with meta data and scraping. That is beyond the scope of any of the discussions in this series so unfortunately that is something you will have to hurdle. Though we need to get it secure with a SSL certificate and also tie the application into a central authentication server (which we will be using Microsoft Active Directory for). To review these use the links below: 
+Once you have the packages you should be able to access the site via `http://<host>:8096`. From there it will have you create your initial administrator user, as well as setup your libraries. You might immediately find difficulties with meta data and scraping. That is beyond the scope of any of the discussions in this series so unfortunately that is something you will have to hurdle. Though we need to get it secure with a SSL certificate and also tie the application into a central authentication server (which we will be using Microsoft Active Directory for). To review these use the links below: 
 
 
 
